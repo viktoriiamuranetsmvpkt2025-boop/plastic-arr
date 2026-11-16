@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Життєвий цикл пластику — AR</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --navy:#0F1E3D; --orange:#FF6B35; --paper:#F5F2EA; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; overflow:hidden; background:#000; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color:#fff; }
+  #ar { position:fixed; inset:0; }
+  #ar video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  #ar canvas { position:absolute; inset:0; }
+
+  #start { position:fixed; inset:0; z-index:20; display:flex; flex-direction:column; justify-content:center; align-items:center;
+           padding:28px; text-align:center; background:linear-gradient(160deg, var(--navy), #1b2f5c); }
+  #start h1 { font-size:34px; line-height:1.05; margin:0 0 8px; font-weight:900; letter-spacing:.3px; }
+  #start h1 span { color:var(--orange); }
+  #start p { max-width:420px; margin:10px 0; color:#C9D3E8; font-size:16px; line-height:1.45; }
+  #start ol { text-align:left; max-width:420px; color:#E6ECF8; font-size:15px; line-height:1.5; padding-left:22px; margin:8px 0 18px; }
+  button { font:inherit; cursor:pointer; border:0; }
+  .btn { background:var(--orange); color:#fff; font-weight:800; font-size:18px; padding:16px 34px; border-radius:40px; }
+  .btn:disabled { opacity:.6; }
+
+  #hint { position:fixed; left:0; right:0; top:14px; z-index:10; display:flex; justify-content:center; pointer-events:none; transition:opacity .3s; }
+  #hint div { background:rgba(15,30,61,.88); padding:10px 18px; border-radius:30px; font-size:15px; font-weight:600; }
+  #caption { position:fixed; left:12px; right:12px; bottom:12px; z-index:10; background:rgba(15,30,61,.92); border-radius:18px;
+             padding:10px 14px; font-size:14px; line-height:1.35; max-height:34vh; overflow:auto; display:none; border-left:6px solid var(--orange); }
+  #caption small { display:block; color:#9FB0D3; margin-top:6px; font-size:12px; }
+  #tools { position:fixed; right:12px; top:12px; z-index:15; display:none; flex-direction:column; gap:8px; align-items:flex-end; }
+  #tools button { background:rgba(15,30,61,.88); color:#fff; padding:8px 12px; border-radius:22px; font-weight:700; font-size:12px; }
+  #tools button.off { background:rgba(120,120,120,.85); }
+  #err { position:fixed; inset:0; z-index:30; display:none; align-items:center; justify-content:center; padding:30px; text-align:center;
+         background:var(--navy); font-size:17px; line-height:1.5; }
+</style>
+<script type="importmap">
+{ "imports": {
+    "three": "./three.module.js",
+    "three/addons/renderers/CSS3DRenderer.js": "./CSS3DRenderer.js",
+    "mindar-image-three": "./mindar-image-three.prod.js"
+} }
+</script>
+</head>
+<body>
+<div id="ar"></div>
+
+<div id="start">
+  <h1>ЖИТТЄВИЙ ЦИКЛ<br><span>ПЛАСТИКУ</span></h1>
+  <p>Доповнена реальність до інфографіки А3: 3D-сцени з'являються просто на папері.</p>
+  <ol>
+    <li>Дозвольте доступ до камери.</li>
+    <li>Наведіть камеру на інфографіку та тримайте її в кадрі.</li>
+    <li>Переміщуйте телефон між блоками. Торкніться зони, щоб повторити анімацію.</li>
+  </ol>
+  <button class="btn" id="startBtn">Почати AR</button>
+</div>
+
+<div id="hint"><div id="hintText">Наведіть камеру на інфографіку</div></div>
+<div id="caption"><span id="capText"></span><small>Торкніться екрана, щоб повторити анімацію</small></div>
+<div id="tools">
+  <button id="toggle3d">3D: увімк</button>
+  <button id="copyLog" style="display:none">Копіювати лог</button>
+</div>
+<div id="err"></div>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>
